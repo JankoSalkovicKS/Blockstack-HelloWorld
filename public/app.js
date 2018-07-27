@@ -16,9 +16,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
         
     })
    
-    //fetch all files
-    document.getElementById('listFilesButton').addEventListener('click', listUserFiles);
+    //add new file
+    document.getElementById('createDocumentButton').addEventListener('click', function(){
+        var data = extractNewDocumentData();
+        console.log(data)
+    });
+    // fetch user files
+    document.getElementById('refreshFilesButton').addEventListener('click', listUserFiles);
+    // open "New File" form
+    document.getElementById('createFormButton').addEventListener('click', function(){
+        showNewFileForm();
+    });
+    // open "List Files" form
+    document.getElementById('listFilesButton').addEventListener('click', async function(){
+        await showListFilesForm();
+    });
 
+    // search for profile by Blockstack ID
     document.getElementById('searchSubmit').addEventListener('click', function(event){
         
         let input = document.getElementById('searchInput').value;
@@ -100,7 +114,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
     /*
         DOM Manipulation
     */
+    //Extract data to create new file
+    function extractNewDocumentData(){
+        var newDocumentName = document.getElementById('newDocumentName').value;
+        var newDocumentText = document.getElementById('newDocumentText').value;
 
+        return {
+            name: newDocumentName,
+            text: newDocumentText
+        }
+    }
+    function showNewFileForm(){
+        // 1. hide some elements
+        document.getElementById('filesList').setAttribute('hidden', true);
+        document.getElementById('createFormButton').setAttribute('hidden', true);
+        document.getElementById('refreshFilesButton').setAttribute('hidden', true);
+        // 2. show list files button
+        document.getElementById('listFilesButton').removeAttribute('hidden');
+        // 3. show create file form
+        document.getElementById('createFileForm').removeAttribute('hidden');
+    }
+    async function showListFilesForm(){
+        // 1. hide some elements
+        document.getElementById('listFilesButton').setAttribute('hidden', true);
+        document.getElementById('createFileForm').setAttribute('hidden', true);
+        
+        // 2. show some elements
+        document.getElementById('filesList').removeAttribute('hidden');
+        document.getElementById('createFormButton').removeAttribute('hidden');
+        document.getElementById('refreshFilesButton').removeAttribute('hidden');
+    }
     //clear change document area
     function clearChangeFileSection(){
        document.getElementById('documentName').value = "";
@@ -212,6 +255,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
     */
 })
+
 /////////////////////////////////////////////////////////////////////////////////////////////
     /*
         FILE HIERARCHY SIMPLE
