@@ -1,0 +1,9 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+        Currently existing main files on JankoSalkovics Gaia 
+    */
+
+    hello.txt
+    test1.txt
+    index.json
+    page0.json
